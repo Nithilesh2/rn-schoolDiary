@@ -46,7 +46,7 @@ const Index = () => {
         style={styles.buttonContainer}
         onPress={() => router.push("/login")}
       >
-        <Text style={styles.button}>Login</Text>
+        <Text style={styles.button}>Get Started</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )

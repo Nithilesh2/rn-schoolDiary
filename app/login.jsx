@@ -59,9 +59,9 @@ const Login = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.buttonContainer}
-            onPress={() => router.push("/")}
+            onPress={() => router.replace("tabs")}
           >
-            <Text style={styles.button}>Login</Text>
+            <Text style={styles.button}>Sign in</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
