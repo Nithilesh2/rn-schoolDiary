@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react"
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import { Agenda } from "react-native-calendars"
+import colors from "../../constants/colors"
 
 const Homework = () => {
   const today = new Date().toISOString().split("T")[0]
@@ -8,71 +9,69 @@ const Homework = () => {
 
   const rawItems = {
     "2025-03-30": [
-      { name: "English - Grammar Worksheet", height: 90 },
-      { name: "Math - Solve Chapter 3", height: 90 },
+      { name: "English - Grammar Worksheet" },
+      { name: "Math - Solve Chapter 3" },
     ],
     "2025-04-01": [
-      { name: "English - Grammar Worksheet", height: 90 },
-      { name: "Math - Solve Chapter 3", height: 90 },
+      { name: "English - Grammar Worksheet" },
+      { name: "Math - Solve Chapter 3" },
     ],
-    "2025-04-02": [{ name: "Science - Lab Report Submission", height: 90 }],
+    "2025-04-02": [{ name: "Science - Lab Report Submission" }],
     "2025-04-03": [
-      { name: "History - Write about World War II", height: 90 },
-      { name: "Math - Integration Practice", height: 90 },
+      { name: "History - Write about World War II" },
+      { name: "Math - Integration Practice" },
     ],
-    "2025-04-04": [{ name: "English - Essay on Climate Change", height: 90 }],
+    "2025-04-04": [{ name: "English - Essay on Climate Change" }],
     "2025-04-05": [
-      { name: "Computer - HTML Practice", height: 90 },
-      { name: "Science - Chapter 6 Revision", height: 90 },
+      { name: "Computer - HTML Practice" },
+      { name: "Science - Chapter 6 Revision" },
     ],
     "2025-04-06": [],
-    "2025-04-07": [{ name: "English - Read Chapter 5", height: 90 }],
+    "2025-04-07": [{ name: "English - Read Chapter 5" }],
     "2025-04-08": [
-      { name: "Math - Differentiation Practice", height: 90 },
-      { name: "Science - Notes for Chapter 7", height: 90 },
+      { name: "Math - Differentiation Practice" },
+      { name: "Science - Notes for Chapter 7" },
     ],
-    "2025-04-09": [{ name: "History - Timeline Assignment", height: 90 }],
+    "2025-04-09": [{ name: "History - Timeline Assignment" }],
     "2025-04-10": [
-      { name: "Math - Worksheet 4", height: 90 },
-      { name: "Computer - JavaScript Basics", height: 90 },
+      { name: "Math - Worksheet 4" },
+      { name: "Computer - JavaScript Basics" },
     ],
-    "2025-04-11": [{ name: "Science - Diagram Labeling", height: 90 }],
-    "2025-04-12": [{ name: "English - Write a Poem", height: 90 }],
+    "2025-04-11": [{ name: "Science - Diagram Labeling" }],
+    "2025-04-12": [{ name: "English - Write a Poem" }],
     "2025-04-13": [],
-    "2025-04-14": [{ name: "Math - Solve Exercise 7.2", height: 90 }],
-    "2025-04-15": [{ name: "Science - Prepare for Quiz", height: 90 }],
+    "2025-04-14": [{ name: "Math - Solve Exercise 7.2" }],
+    "2025-04-15": [{ name: "Science - Prepare for Quiz" }],
     "2025-04-16": [
-      { name: "English - Story Writing", height: 90 },
-      { name: "History - Chapter 4 Summary", height: 90 },
+      { name: "English - Story Writing" },
+      { name: "History - Chapter 4 Summary" },
     ],
-    "2025-04-17": [{ name: "Math - Practice Integration", height: 90 }],
+    "2025-04-17": [{ name: "Math - Practice Integration" }],
     "2025-04-18": [],
     "2025-04-19": [
-      { name: "English - Essay on AI", height: 90 },
-      { name: "Math - Integration Worksheet", height: 90 },
-      { name: "Science - Read Chapter 4", height: 90 },
+      { name: "English - Essay on AI" },
+      { name: "Math - Integration Worksheet" },
+      { name: "Science - Read Chapter 4" },
     ],
-    "2025-04-20": [
-      { name: "History - Write about French Revolution", height: 90 },
-    ],
+    "2025-04-20": [{ name: "History - Write about French Revolution" }],
     "2025-04-21": [
-      { name: "Math - Solve Mock Test", height: 90 },
-      { name: "Computer - CSS Styling Task", height: 90 },
+      { name: "Math - Solve Mock Test" },
+      { name: "Computer - CSS Styling Task" },
     ],
-    "2025-04-22": [{ name: "Science - Finish Lab Manual", height: 90 }],
+    "2025-04-22": [{ name: "Science - Finish Lab Manual" }],
     "2025-04-23": [],
-    "2025-04-24": [{ name: "English - Reading Comprehension", height: 90 }],
+    "2025-04-24": [{ name: "English - Reading Comprehension" }],
     "2025-04-25": [
-      { name: "Math - Formula Memorization", height: 90 },
-      { name: "Science - Worksheet on Physics", height: 90 },
+      { name: "Math - Formula Memorization" },
+      { name: "Science - Worksheet on Physics" },
     ],
-    "2025-04-26": [{ name: "History - Map Labeling", height: 90 }],
+    "2025-04-26": [{ name: "History - Map Labeling" }],
     "2025-04-27": [],
-    "2025-04-28": [{ name: "Computer - Create Web Page", height: 90 }],
-    "2025-04-29": [{ name: "English - Vocabulary Exercise", height: 90 }],
+    "2025-04-28": [{ name: "Computer - Create Web Page" }],
+    "2025-04-29": [{ name: "English - Vocabulary Exercise" }],
     "2025-04-30": [
-      { name: "Math - Final Revision Notes", height: 90 },
-      { name: "Science - Group Activity Prep", height: 90 },
+      { name: "Math - Final Revision Notes" },
+      { name: "Science - Group Activity Prep" },
     ],
   }
 
@@ -91,9 +90,13 @@ const Homework = () => {
   }
 
   const renderItem = (item) => (
-    <View style={styles.item}>
-      <Text style={styles.itemText}>{item.name}</Text>
-    </View>
+    <>
+      <View style={styles.item}>
+        <Text style={styles.itemText} selectable>
+          {item.name}
+        </Text>
+      </View>
+    </>
   )
 
   const scrollToToday = () => {
@@ -139,7 +142,7 @@ const Homework = () => {
         }}
       />
 
-      <TouchableOpacity style={styles.todayButton} onPress={scrollToToday}>
+      <TouchableOpacity activeOpacity={0.9} style={styles.todayButton} onPress={scrollToToday}>
         <Text style={styles.todayButtonText}>Today</Text>
       </TouchableOpacity>
     </View>
@@ -160,10 +163,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
-    minHeight: 90,
+    minHeight: 50,
   },
   itemText: {
     fontSize: 16,
+    fontFamily: "IndieFlower_400Regular",
   },
   empty: {
     height: 50,
@@ -175,15 +179,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 20,
-    backgroundColor: "#007bff",
-    paddingHorizontal: 15,
+    backgroundColor: colors.indigo,
+    paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
     elevation: 5,
   },
   todayButtonText: {
     color: "#fff",
-    fontWeight: "bold",
+    fontFamily: "IndieFlower_400Regular"
   },
 })
 

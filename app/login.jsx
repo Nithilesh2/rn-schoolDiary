@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     color: colors.textSecondary,
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "IndieFlower_400Regular",
     marginBottom: 5,
   },
   inputBar: {
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 20,
     fontSize: 16,
+    fontFamily: 'IndieFlower_400Regular'
   },
   passwordContainer: {
     flexDirection: "row",
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 18,
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "IndieFlower_400Regular",
     color: colors.background,
   },
   dropdown: {
@@ -200,6 +201,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
+    fontFamily: 'IndieFlower_400Regular'
   },
   iconStyle: {
     width: 20,
@@ -209,6 +211,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     borderRadius: 8,
+    fontFamily: 'IndieFlower_400Regular'
   },
   dropdownContainer: {
     backgroundColor: '#f5f5f5',
@@ -217,6 +220,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   itemTextStyle: {
+    fontFamily: 'IndieFlower_400Regular',
     color: colors.textPrimary,
   },
 })

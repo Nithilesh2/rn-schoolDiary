@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 18,
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "IndieFlower_400Regular",
     color: colors.background,
   },
 })
