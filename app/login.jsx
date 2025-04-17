@@ -1,31 +1,50 @@
 import {
   Image,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Platform,
 } from "react-native"
 import React, { useState } from "react"
 import colors from "../constants/colors"
 import loginImage from "../assets/image/login.png"
 import EyeOpenIcon from "../assets/icons/EyeOpen"
 import EyeCloseIcon from "../assets/icons/EyeClose"
-import { useRouter } from "expo-router";
+import { useRouter } from "expo-router"
+import { Dropdown } from "react-native-element-dropdown"
+import AntDesign from "@expo/vector-icons/AntDesign"
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [value, setValue] = useState(null)
+  const [isFocus, setIsFocus] = useState(false)
+
   const router = useRouter()
 
+  const data = [
+    { label: "Siddhartha High School", value: "1" },
+    { label: "Green Valley Public School", value: "2" },
+    { label: "Bluebell International School", value: "3" },
+    { label: "St. Joseph's Convent", value: "4" },
+    { label: "Oakridge Global School", value: "5" },
+    { label: "Sunshine High School", value: "6" },
+    { label: "Vivekananda Vidyalaya", value: "7" },
+    { label: "Cambridge International Academy", value: "8" },
+    { label: "Mount Carmel School", value: "9" },
+    { label: "Little Flower High School", value: "10" },
+    { label: "Genius Public School", value: "11" },
+    { label: "Delhi World Public School", value: "12" },
+    { label: "Silver Oak International", value: "13" },
+    { label: "Global Wisdom School", value: "14" },
+    { label: "Harmony International Academy", value: "15" },
+    { label: "Riverdale High School", value: "16" },
+  ] 
+
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
-    >
+    <View style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
@@ -33,7 +52,45 @@ const Login = () => {
         <Image source={loginImage} style={styles.loginImage} />
 
         <View style={styles.formContainer}>
-          <Text style={styles.title}>Student ID</Text>
+          <Text style={styles.title}>School</Text>
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: colors.indigo }]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            data={data}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder={!isFocus ? "Select school" : "..."}
+            searchPlaceholder="Search..."
+            value={value}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setValue(item.value)
+              setIsFocus(false)
+            }}
+            renderLeftIcon={() => (
+              <AntDesign
+                style={styles.icon}
+                color={isFocus ? colors.indigo : "black"}
+                name="enviromento"
+                size={20}
+              />
+            )}
+            containerStyle={styles.dropdownContainer}
+            itemTextStyle={styles.itemTextStyle}
+            activeColor={colors.indigoLight}
+            keyboardAvoiding={Platform.OS === "ios"}
+            flatListProps={{
+              keyboardShouldPersistTaps: "always",
+            }}
+          />
+
+          <Text style={styles.title}>Student/Teacher ID</Text>
           <TextInput style={styles.inputBar} placeholder="21951" />
 
           <Text style={styles.title}>Password</Text>
@@ -65,7 +122,7 @@ const Login = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </View>
   )
 }
 
@@ -90,6 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: colors.textSecondary,
     fontFamily: "Poppins_500Medium",
+    marginBottom: 5,
   },
   inputBar: {
     height: 45,
@@ -124,5 +182,41 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Poppins_500Medium",
     color: colors.background,
+  },
+  dropdown: {
+    height: 45,
+    borderColor: colors.textPrimary,
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color: 'gray',
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+    borderRadius: 8,
+  },
+  dropdownContainer: {
+    backgroundColor: '#f5f5f5',
+    borderRadius: 10,
+    marginTop: 5,
+    borderWidth: 0,
+  },
+  itemTextStyle: {
+    color: colors.textPrimary,
   },
 })

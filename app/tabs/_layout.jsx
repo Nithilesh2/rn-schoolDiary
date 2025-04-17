@@ -17,7 +17,6 @@ const _layout = () => {
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           backgroundColor: colors.background,
-          position: "absolute",
           borderTopWidth: 0,
           elevation: 10,
           shadowColor: "#000",

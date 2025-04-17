@@ -4,7 +4,7 @@
     "slug": "SchoolDiary",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/image/logo.png",
+    "icon": "./assets/image/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/image/logo.png",
+        "foregroundImage": "./assets/image/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.bejagam.SchoolDiary"
@@ -21,14 +21,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/image/logo.png"
+      "favicon": "./assets/image/icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/image/logo.png",
+          "image": "./assets/image/icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
