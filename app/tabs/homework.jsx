@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     padding: 15,
     marginRight: 10,
     marginTop: 17,
