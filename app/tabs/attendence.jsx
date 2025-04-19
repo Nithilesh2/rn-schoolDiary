@@ -1,165 +1,166 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Calendar } from "react-native-calendars";
-import colors from "../../constants/colors";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native"
+import React, { useState } from "react"
+import colors from "./../../constants/colors"
+import AttendenceCalendar from "../../components/AttendenceCalendar"
+import AttendanceGraph from "../../components/AttendenceGraph"
+import HeapAttendanceGraph from "../../components/HeapAttendanceGraph"
 
-const attendanceData = {
-  "2025-04-01": { marked: true, dotColor: colors.green, status: "present" },
-  "2025-04-02": { marked: true, dotColor: colors.red, status: "absent" },
-  "2025-04-03": { marked: true, dotColor: colors.green, status: "present" },
-  "2025-04-04": { marked: true, dotColor: colors.green, status: "present" },
-  "2025-04-05": { marked: true, dotColor: colors.red, status: "absent" },
-};
-
-const AttendanceScreen = () => {
-  const [markedDates, setMarkedDates] = useState(attendanceData);
-  const today = new Date().toISOString().split("T")[0];
-
-  const totalDays = Object.keys(markedDates).length;
-  const presentDays = Object.values(markedDates).filter(
-    (day) => day.status === "present"
-  ).length;
-  const absentDays = totalDays - presentDays;
-  const attendancePercentage = ((presentDays / totalDays) * 100).toFixed(2);
-
-  const DayComponent = ({ date, state, marking }) => {
-    return (
-      <View style={styles.dayContainer}>
-        <Text
-          style={[
-            styles.dayText,
-            state === "today" && styles.todayText,
-            marking?.status === "absent" && styles.absentDayText,
-          ]}
-        >
-          {date.day}
-        </Text>
-        {marking?.marked && (
-          <View
-            style={[
-              styles.dot,
-              { backgroundColor: marking.dotColor },
-            ]}
-          />
-        )}
-      </View>
-    );
-  };
+const attendence = () => {
+  const [selectedGraph, setSelectedGraph] = useState("bar")
+  const presentCount = 15
+  const absentCount = 5
+  const totalDays = presentCount + absentCount
+  const percentage = ((presentCount / totalDays) * 100).toFixed(1)
 
   return (
-    <View style={styles.container}>
-      <Calendar
-        current={today}
-        markedDates={markedDates}
-        markingType={"custom"}
-        dayComponent={DayComponent}
-        onDayPress={(day) => {
-          console.log("Selected day", day);
-        }}
-        theme={{
-          todayTextColor: colors.primary,
-          arrowColor: colors.indigo,
-          textDayFontFamily: "IndieFlower_400Regular",
-          textMonthFontFamily: "IndieFlower_400Regular",
-          textDayHeaderFontFamily: "IndieFlower_400Regular",
-        }}
-      />
-
-      <ScrollView style={styles.summaryContainer}>
-        <View style={styles.summaryCard}>
-          <Text style={styles.summaryTitle}>Attendance Summary</Text>
-          <View style={styles.summaryItem}>
-            <Text style={styles.label}>Total Working Days: </Text>
-            <Text style={styles.value}>{totalDays}</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.stats}>
+          <View style={styles.presentAndAbsentContainer}>
+            <View style={[styles.presentContainer, styles.containers]}>
+              <Text style={styles.label}>Present</Text>
+              <Text style={styles.label}>{presentCount}</Text>
+            </View>
+            <View style={[styles.absentContainer, styles.containers]}>
+              <Text style={styles.label}>Absent</Text>
+              <Text style={styles.label}>{absentCount}</Text>
+            </View>
           </View>
-          <View style={styles.summaryItem}>
-            <Text style={styles.label}>Present: </Text>
-            <Text style={styles.value}>{presentDays}</Text>
-          </View>
-          <View style={styles.summaryItem}>
-            <Text style={styles.label}>Absent: </Text>
-            <Text style={styles.value}>{absentDays}</Text>
-          </View>
-          <View style={styles.summaryItem}>
-            <Text style={styles.label}>Attendance Percentage: </Text>
-            <Text style={styles.value}>{attendancePercentage}%</Text>
+          <View style={styles.percentContainer}>
+            <Text style={styles.label}>Attendance</Text>
+            <Text style={styles.label}>{percentage}%</Text>
           </View>
         </View>
+
+        <AttendenceCalendar />
+
+        <View style={styles.toggleContainer}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={[
+              styles.toggleButton,
+              selectedGraph === "bar" && styles.selectedButton,
+            ]}
+            onPress={() => setSelectedGraph("bar")}
+          >
+            <Text
+              style={[
+                styles.toggleText,
+                selectedGraph === "bar" && styles.selectedText,
+              ]}
+            >
+              Bar Graph
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={[
+              styles.toggleButton,
+              selectedGraph === "heap" && styles.selectedButton,
+            ]}
+            onPress={() => setSelectedGraph("heap")}
+          >
+            <Text
+              style={[
+                styles.toggleText,
+                selectedGraph === "heap" && styles.selectedText,
+              ]}
+            >
+              Heap Graph
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {selectedGraph === "bar" ? (
+          <AttendanceGraph present={presentCount} absent={absentCount} />
+        ) : (
+          <HeapAttendanceGraph present={presentCount} absent={absentCount} />
+        )}
       </ScrollView>
-    </View>
-  );
-};
+    </SafeAreaView>
+  )
+}
+
+export default attendence
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingTop: 16,
     paddingHorizontal: 16,
-    paddingTop: 24,
   },
-  dayContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 36,
+  stats: {
+    height: 170,
+    marginTop: 10,
+    gap: 15,
   },
-  dayText: {
-    fontSize: 16,
-    fontFamily: "IndieFlower_400Regular",
-    color: colors.textPrimary,
-  },
-  absentDayText: {
-    backgroundColor: colors.red,
-    color: colors.white,
-    borderRadius: 18,
-    width: 36,
-    height: 36,
-    textAlign: "center",
-    textAlignVertical: "center",
-    lineHeight: 36,
-  },
-  todayText: {
-    color: colors.primary,
-  },
-  dot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    position: "absolute",
-    bottom: 2,
-  },
-  summaryContainer: {
-    marginTop: 20,
-  },
-  summaryCard: {
-    backgroundColor: colors.white,
-    padding: 15,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
-  },
-  summaryTitle: {
-    fontSize: 22,
-    fontFamily: "IndieFlower_400Regular",
-    color: colors.indigo,
-    marginBottom: 12,
-  },
-  summaryItem: {
+  presentAndAbsentContainer: {
     flexDirection: "row",
-    marginVertical: 6,
+    justifyContent: "center",
+    gap: 20,
+  },
+  containers: {
+    width: 150,
+    height: 70,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 10,
+    shadowColor: colors.textPrimary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  presentContainer: {
+    backgroundColor: colors.present,
+  },
+  absentContainer: {
+    backgroundColor: colors.absent,
+  },
+  percentContainer: {
+    backgroundColor: colors.percent,
+    width: "100%",
+    height: 70,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
   label: {
-    fontSize: 18,
-    color: colors.textPrimary,
+    fontSize: 20,
     fontFamily: "IndieFlower_400Regular",
   },
-  value: {
-    fontSize: 18,
-    color: colors.textPrimary,
-    fontFamily: "IndieFlower_400Regular",
-    fontWeight: "bold",
+  toggleContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 30,
+    marginBottom: 15,
+    gap: 10,
   },
-});
-
-export default AttendanceScreen;
+  toggleButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    backgroundColor: "#ccc",
+    borderRadius: 8,
+  },
+  selectedButton: {
+    backgroundColor: colors.indigo,
+    color: colors.white,
+  },
+  toggleText: {
+    color: colors.indigo,
+    fontFamily: "IndieFlower_400Regular",
+    fontSize: 18,
+  },
+  selectedText: {
+    color: colors.white,
+  },
+})

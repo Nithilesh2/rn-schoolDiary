@@ -8,6 +8,9 @@ const colors = {
   textPrimary: "#333",
   textSecondary: "#666",
   white: "#FFFFFF",
+  present: "#C8E6C9",
+  absent: "#FFCDD2",
+  percent: "#BBDEFB"
 }
 
 export default colors
